@@ -17,7 +17,7 @@ const router=createBrowserRouter([
     element:<App/>
   },
   {
-    path:'/create-trip',
+    path:'/create-trip/index.jsx',
     element:<CreateTrip/>
   },
   //we will use dynamic routing here
