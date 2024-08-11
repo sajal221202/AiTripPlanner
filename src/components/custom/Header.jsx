@@ -54,77 +54,87 @@ function Header() {
 }
 
   return (
-    <div className="p-3 flex justify-between items-center h-20">
-      <img src="/nirvananomads.png" alt="" className="w-36 h-auto cursor-pointer" onClick={()=>window.location.href='/'}/>
-      <div>
-        {user ? (
-          <div className="flex items-center gap-4">
-            {/* add more trip */}
-            <a href="/create-trip">
-            <Button variant="outline" className="rounded-full">
-              ➕ Create Trip
-            </Button>
-            </a>
+    <div className="p-3 flex justify-between items-center h-20 max-w-7xl mx-auto">
+  <img
+    src="/nirvananomads.png"
+    alt="Nirvana Nomads Logo"
+    className="w-24 sm:w-28 md:w-32 lg:w-36 h-auto cursor-pointer"
+    onClick={() => window.location.href = '/'}
+  />
+  <div>
+    {user ? (
+      <div className="flex items-center gap-3 sm:gap-4">
+        {/* Add more trip */}
+        <a href="/create-trip">
+          <Button variant="outline" className="rounded-full">
+            ➕ Create Trip
+          </Button>
+        </a>
 
-            {/* header is not under react-router-dom component thus path element will not work we have to apply href for this */}
-            <a href="/my-trips">
-            <Button variant="outline" className="rounded-full">
-              My Trips
-            </Button>
-            </a>
+        {/* My Trips */}
+        <a href="/my-trips">
+          <Button variant="outline" className="rounded-full">
+            My Trips
+          </Button>
+        </a>
 
-            {/* pop up for logout */}
-            <Popover>
-              <PopoverTrigger>
-                <img
-                  src={user?.picture}
-                  className="h-[35px] w-[35px] rounded-full"
-                />
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className="flex flex-col gap-1">
-                {/* name of the user */}
-                <h2 className="font-bold bg-slate-200 p-1">{user?.name}</h2>
-                {/* logout button through goole logout auth */}
-                <h2 className="cursor-pointer  bg-red-200 p-1 hover:bg-red-500" onClick={()=>{
-                  //logout kiya
+        {/* Popover for logout */}
+        <Popover>
+          <PopoverTrigger>
+            <img
+              src={user?.picture}
+              className="h-8 w-8 sm:h-[35px] sm:w-[35px] rounded-full"
+            />
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="flex flex-col gap-1">
+              {/* User's name */}
+              <h2 className="font-bold bg-slate-200 p-1 text-center">
+                {user?.name}
+              </h2>
+              {/* Logout button */}
+              <h2
+                className="cursor-pointer bg-red-200 p-1 hover:bg-red-500 text-center"
+                onClick={() => {
                   googleLogout();
-                  //local storage clear kiya
                   localStorage.clear();
-                  //window refresh
                   window.location.reload();
-                }}>Logout</h2>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </div>
-        ) : (
-          <Button onClick={()=>setopenDialog(true)}>Sign In</Button>
-        )}
+                }}
+              >
+                Logout
+              </h2>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
-       {/* dialog box */}
-    <Dialog open={openDialog}>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle></DialogTitle>
-      <DialogDescription>
-        <img src='/nirvananomads.png' className="w-40 h-auto ml-[34%]" />
-      </DialogDescription>
-      <h2 className='font-bold text-lg mt-5'>Sign In with Google</h2>
-      <p>Sign In to the App with Google Authentication securely</p>
+    ) : (
+      <Button onClick={() => setopenDialog(true)}>Sign In</Button>
+    )}
+  </div>
 
-      <Button
-       className='w-full mt-7 flex gap-2 items-center' 
-       onClick={login}>
-        <FcGoogle className='h-6 w-6' />
-        Sign In With Google
-      </Button>
+  {/* Dialog Box */}
+  <Dialog open={openDialog}>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle></DialogTitle>
+        <DialogDescription>
+          <img src="/nirvananomads.png" className="w-28 sm:w-32 md:w-40 h-auto mx-auto" />
+        </DialogDescription>
+        <h2 className="font-bold text-lg mt-5 text-center">Sign In with Google</h2>
+        <p className="text-center">Sign In to the App with Google Authentication securely</p>
 
+        <Button
+          className="w-full mt-7 flex gap-2 items-center justify-center"
+          onClick={login}
+        >
+          <FcGoogle className="h-6 w-6" />
+          Sign In With Google
+        </Button>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
+</div>
 
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
-    </div>
   );
 }
 
