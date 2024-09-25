@@ -74,29 +74,35 @@ function Header() {
             </a>
 
             {/* pop up for logout */}
-            <Popover>
-              <PopoverTrigger>
-                <img
-                  src={user?.picture}
-                  className="h-[35px] w-[35px] rounded-full"
-                />
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className="flex flex-col gap-1">
-                {/* name of the user */}
-                <h2 className="font-bold bg-slate-200 p-1">{user?.name}</h2>
-                {/* logout button through goole logout auth */}
-                <h2 className="cursor-pointer  bg-red-200 p-1 hover:bg-red-500" onClick={()=>{
-                  //logout kiya
-                  googleLogout();
-                  //local storage clear kiya
-                  localStorage.clear();
-                  //window refresh
-                  window.location.reload();
-                }}>Logout</h2>
-                </div>
-              </PopoverContent>
-            </Popover>
+           <Popover>
+    <PopoverTrigger>
+      <img
+        src={user?.picture}
+        className="h-10 w-10 sm:h-12 sm:w-12 rounded-full cursor-pointer"
+        alt="User"
+      />
+    </PopoverTrigger>
+    <PopoverContent className="w-48 md:w-64 mt-2 absolute right-0 top-full bg-white   shadow-lg rounded-lg">
+      <div className="flex flex-col gap-2 p-2">
+        {/* Name of the user */}
+        <h2 className=" cursor-pointer font-bold bg-slate-200 hover:bg-slate-400 p-2 text-center rounded-md">{user?.name}</h2>
+        {/* Logout button through Google logout auth */}
+        <h2
+          className="cursor-pointer font-bold bg-red-200 p-2 text-center rounded-md hover:bg-red-400 text-black"
+          onClick={() => {
+            // Logout action
+            googleLogout();
+            // Clear local storage
+            localStorage.clear();
+            // Refresh the window
+            window.location.reload();
+          }}
+        >
+          Logout
+        </h2>
+      </div>
+    </PopoverContent>
+  </Popover>
           </div>
         ) : (
           <Button onClick={()=>setopenDialog(true)}>Sign In</Button>
