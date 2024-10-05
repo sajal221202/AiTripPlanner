@@ -154,7 +154,7 @@ function CreateTrip() {
   return (
     <div className='sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10'>
       <h2 className='font-bold text-3xl'>Share Your Travel Preferences and Let Us Curate Your Perfect Journey! 🌴🏕️</h2>
-      <p className='mt-3  text-gray-900 text-xl'>Simply provide some basic details, and our trip planner will craft a personalized itinerary tailored to your preferences</p>
+      <p className='mt-3  text-gray-900 text-xl dark:text-gray-100'>Simply provide some basic details, and our trip planner will craft a personalized itinerary tailored to your preferences</p>
       
       {/* we will use here auto complete feature of react library */}
       {/* react-google-places-autocomplete */}
@@ -211,7 +211,7 @@ function CreateTrip() {
 
 
     <div className='my-10 justify-end flex'>
-    <Button disabled={loading} onClick={OnGenerateTrip}>
+    <Button variant="themed" disabled={loading} onClick={OnGenerateTrip}>
       {loading?<RiLoader2Line className='h-7 w-7 animate-spin' />:"Generate Trip"}
     </Button>
     </div>
