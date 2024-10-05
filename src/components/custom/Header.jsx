@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import ThemeToggle from '../ui/ThemeToggle';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
   Popover,
   PopoverContent,
@@ -23,6 +25,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 
 function Header() {
+  const { isDarkMode } = useTheme();
   //taking the users from the local storage for updatinf headr after sign in
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -33,30 +36,35 @@ function Header() {
   const [openDialog, setopenDialog] = useState(false);
 
   //method for login with google
-  const login=useGoogleLogin({ 
+  const login = useGoogleLogin({
     //it has two callback methods
-    onSuccess:(codesResp)=>GetUserProfile(codesResp),
-    onError:(error)=>console.log(error)
-  })
-  const GetUserProfile=(token_info)=>{
-    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token_info?.access_token}`,{
-    headers:{
-      Authorization:`Bearer ${token_info?.access_token}`,
-      Accept:'Application/json'
-    }
-  }).then((resp) => {
-     console.log(resp);
-     //we will store these value or user info into local storage
-     localStorage.setItem('user',JSON.stringify(resp.data));
-     setopenDialog(false);
-     window.location.reload();
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      GetUserProfile(codeResponse);
+    },
+    onError: (error) => console.log('Login Failed:', error)
   });
-}
+
+  const GetUserProfile = (token_info) => {
+    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${token_info?.access_token}`, {
+      headers: {
+        Authorization: `Bearer ${token_info?.access_token}`,
+        Accept: 'application/json'
+      }
+    }).then((resp) => {
+      console.log(resp);
+      //we will store these value or user info into local storage
+      localStorage.setItem('user', JSON.stringify(resp.data));
+      setopenDialog(false);
+      window.location.reload();
+    }).catch(err => console.log(err));
+  };
 
   return (
-   <div className="p-3 flex justify-between items-center h-20">
+    <div className={`p-3 flex justify-between items-center h-20 header ${isDarkMode ? 'dark' : ''}`}>
       <img src="/nirvananomads.png" alt="" className="w-36 h-auto cursor-pointer" onClick={()=>window.location.href='/'}/>
-      <div>
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
         {user ? (
           <div className="flex items-center gap-4">
             {/* add more trip */}
@@ -105,7 +113,7 @@ function Header() {
   </Popover>
           </div>
         ) : (
-          <Button onClick={()=>setopenDialog(true)}>Sign In</Button>
+          <Button variant="themed" onClick={() => setopenDialog(true)}>Sign In</Button>
         )}
       </div>
        {/* dialog box */}

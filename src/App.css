@@ -40,3 +40,38 @@
 .read-the-docs {
   color: #888;
 }
+
+:root {
+  --background: white;
+  --text-primary: black;
+  --text-secondary: #D4D4D4;
+  --button-bg: black;
+  --button-text: white;
+}
+
+.dark {
+  --background: black;
+  --text-primary: white;
+  --text-secondary: #2B2B2B;
+  --button-bg: white;
+  --button-text: black;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+button {
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+}
