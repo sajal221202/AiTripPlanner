@@ -168,8 +168,13 @@ function CreateTrip() {
 
         <div>
         <h2 className='text-xl my-3 font-medium'>How many days are you planning your trip⌛ ?</h2>
-        <Input placeholder={'Ex. 2'} type='number' 
-        onChange={(e)=>handleInputChange('nOofdays',e.target.value)}/>
+        <Input
+  placeholder={'Ex. 2'}
+  type="number"
+  onChange={(e) => handleInputChange('nOofdays', e.target.value)}
+  onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+/>
+
         </div>
 
 
